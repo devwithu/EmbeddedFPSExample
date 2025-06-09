@@ -203,7 +203,7 @@ now let's send that message at the end of the constructor of the ClientConnectio
         ServerManager.Instance.Players.Add(client.ID, this);
         ServerManager.Instance.PlayersByName.Add(Name, this);
 
-        using (Message m = Message.Create((ushort)Tags.LoginRequestAccepted, new LoginInfoData(client.ID, new LobbyInfoData(RoomManager.Instance.GetRoomDataList()))))
+        using (Message m = Message.Create((ushort)Tags.LoginRequestAccepted, new LoginInfoData(client.ID, new LobbyInfoData())))
         {
             client.SendMessage(m, SendMode.Reliable);
         }

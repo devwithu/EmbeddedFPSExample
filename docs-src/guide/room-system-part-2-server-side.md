@@ -37,9 +37,9 @@ And create a function to call if the player disconnects:
     }
 ```
 
-Open the ServerManager and replace the OnClientDisconnect() function with this new version which calls the function in the ClientConnection:
+Open the ServerManager and replace the OnClientDisconnected() function with this new version which calls the function in the ClientConnection:
 ```csharp
-    private void OnClientDisconnect(object sender, ClientDisconnectedEventArgs e)
+    private void OnClientDisconnected(object sender, ClientDisconnectedEventArgs e)
     {
         IClient client = e.Client;
         ClientConnection p;
