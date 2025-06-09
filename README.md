@@ -1,3 +1,6 @@
+# Original Repo is 
+https://github.com/LukeStampfli/EmbeddedFPSExample
+
 # EmbeddedFPSExample
 
 Welcome to the EmbeddedFPSExample tutorial!
@@ -14,6 +17,8 @@ This tutorial will cover the following subjects:
 - Lag compensation (shooting in an FPS game)
 
 You can follow the tutorial here: https://lukestampfli.github.io/EmbeddedFPSExample/guide/introduction.html
+
+Fix typo by devwithu here: https://devwithu.github.io/EmbeddedFPSExample/guide/introduction.html
 
 
 ## Building the Website
