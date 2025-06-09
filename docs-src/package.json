@@ -1,0 +1,15 @@
+{
+  "name": "docs-src",
+  "version": "1.0.0",
+  "description": "<meta http-equiv=\"refresh\" content=\"0;url=/EmbeddedFPSExample/guide/introduction.html\" />",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vuepress": "^1.9.10"
+  }
+}
