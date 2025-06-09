@@ -127,7 +127,7 @@ Lets call TryJoinRoom from the ClientConnection script if we get a LobbyJoinRoom
         IClient client = (IClient)sender;
         using (Message message = e.GetMessage())
         {
-            switch ((Tags)m.Tag)
+            switch ((Tags)message.Tag)
             {
                 case Tags.LobbyJoinRoomRequest:
                     RoomManager.Instance.TryJoinRoom(client, message.Deserialize<JoinRoomRequest>());

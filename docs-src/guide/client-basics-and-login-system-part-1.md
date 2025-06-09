@@ -280,7 +280,7 @@ This function will deactivate the login window and then send a message to the se
 Finally lets subscribe our login button to that function. To do that add the following in the Start() function:
 
 ```csharp
-SubmitLoginButton.onClick.AddListener(OnSubmitLogin);
+submitLoginButton.onClick.AddListener(OnSubmitLogin);
 ```
 ::: tip
 You can also subscribe a function to a button in the Unity UI of the button itself. I prefer to do it in code because it is less messy.

@@ -78,8 +78,8 @@ public struct GameUpdateData : IDarkRiftSerializable
     {
         Frame = frame;
         UpdateData = updateData;
-        DespawnDataData = despawnData;
-        SpawnDataData = spawnData;
+        DespawnData = despawnData;
+        SpawnData = spawnData;
     }
 
     public void Deserialize(DeserializeEvent e)
@@ -179,7 +179,7 @@ Next we want to send a message to the server in Start() and we want to receive m
     void OnDestroy()
     {
         Instance = null;
-        GlobalManager.Instance.Client.MessageReceived -= OnMessage;
+        ConnectionManager.Instance.Client.MessageReceived -= OnMessage;
     }
 
     void Start()
@@ -233,8 +233,8 @@ public void Initialize(ushort id, string playerName)
 {
     this.id = id;
     this.playerName = playerName;
-    NameText.text = this.playerName;
-    SetHealth(100);
+    //NameText.text = this.playerName;
+    //SetHealth(100);
     if (ConnectionManager.Instance.PlayerId == id)
     {
         isOwn = true;
@@ -257,7 +257,7 @@ public void OnServerDataUpdate(PlayerStateData playerStateData)
     }
     else
     {
-        Interpolation.SetFramePosition(playerStateData);
+        interpolation.SetFramePosition(playerStateData);
     }
 }
 ```
@@ -293,7 +293,7 @@ void FixedUpdate()
             ConnectionManager.Instance.Client.SendMessage(message, SendMode.Reliable);
         }
 
-        reconciliationHistory.Enqueue(new ReconciliationInfo(GameManager.Instance.ClientTick, nextStateData, inputData));
+        //reconciliationHistory.Enqueue(new ReconciliationInfo(GameManager.Instance.ClientTick, nextStateData, inputData));
     }
 }
 ```
@@ -458,7 +458,7 @@ void FixedUpdate()
 void UpdateClientGameState(GameUpdateData gameUpdateData)
 {
     LastReceivedServerTick = gameUpdateData.Frame;
-    foreach (PlayerSpawnData data in gameUpdateData.SpawnDataData)
+    foreach (PlayerSpawnData data in gameUpdateData.SpawnData)
     {
         if (data.Id != ConnectionManager.Instance.PlayerId)
         {
@@ -466,7 +466,7 @@ void UpdateClientGameState(GameUpdateData gameUpdateData)
         }
     }
 
-    foreach (PlayerDespawnData data in gameUpdateData.DespawnDataData)
+    foreach (PlayerDespawnData data in gameUpdateData.DespawnData)
     {
         if (players.ContainsKey(data.Id))
         {
@@ -535,13 +535,13 @@ Now let's create a function to react on a GameJoinRequest from a client:
 ```csharp
 public void JoinPlayerToGame(ClientConnection clientConnection)
 {
-    GameObject go = Instantiate(PlayerPrefab, transform);
+    GameObject go = Instantiate(playerPrefab, transform);
     ServerPlayer player = go.GetComponent<ServerPlayer>();
     serverPlayers.Add(player);
     playerStateData.Add(default);
     player.Initialize(Vector3.zero, clientConnection);
 
-    spawnDatas.Add(player.GetPlayerSpawnData());
+    playerSpawnData.Add(player.GetPlayerSpawnData());
 }
 ```
 
@@ -632,7 +632,7 @@ So let's add a bit of logic to the ServerPlayer:
 
     public PlayerSpawnData GetPlayerSpawnData()
     {
-        return new PlayerSpawnData(Client.ID, ClientConnection.Name, transform.localPosition);
+        return new PlayerSpawnData(Client.ID, clientConnection.Name, transform.localPosition);
     }
 ```
 

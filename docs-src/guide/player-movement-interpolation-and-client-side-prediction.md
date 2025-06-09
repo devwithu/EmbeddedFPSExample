@@ -267,7 +267,7 @@ void Start(){
     Camera.main.transform.localPosition = new Vector3(0,0,0);
     Camera.main.transform.localRotation = Quaternion.identity;
     
-    playerStateData = new PlayerStateData(Id, 0, Vector3.zero, Quaternion.identity);
+    playerStateData = new PlayerStateData(id, 0, Vector3.zero, Quaternion.identity);
 }
 ```
 Now we can create a simple logic to read inputs and perform movement in FixedUpdate:
@@ -287,10 +287,10 @@ Now we can create a simple logic to read inputs and perform movement in FixedUpd
 
             Quaternion rotation = Quaternion.Euler(pitch, yaw,0);
 
-            PlayerInputData inputData = new PlayerInputData(inputs, rot, 0/*here we later synchronize the last recieved tick number from the server*/);
+            PlayerInputData inputData = new PlayerInputData(inputs, rotation, 0/*here we later synchronize the last recieved tick number from the server*/);
 
-            PlayerStateData nextStateData = Logic.GetNextFrameData(inputData, data);
-            transform.rotation = data.LookDirection;
+            PlayerStateData nextStateData = playerLogic.GetNextFrameData(inputData, playerStateData);
+            transform.rotation = playerStateData.LookDirection;
     }
 ```
 
@@ -369,7 +369,7 @@ Next we have to replace our logic which used the playerStateData with the values
 ```
 with
 ```csharp
-    Interpolation.CurrentData = new PlayerStateData(Id, 0, Vector3.zero, Quaternion.identity);
+    interpolation.CurrentData = new PlayerStateData(id, 0, Vector3.zero, Quaternion.identity);
 ```
 
 Next search for the following lines in FixedUpdate:
@@ -379,7 +379,7 @@ Next search for the following lines in FixedUpdate:
 ```
 and replace them with:
 ```csharp
-    transform.position = Interpolation.CurrentData.Position;
+    transform.position = interpolation.CurrentData.Position;
     PlayerStateData nextStateData = playerLogic.GetNextFrameData(inputData, interpolation.CurrentData);
     interpolation.SetFramePosition(nextStateData);
 ```
