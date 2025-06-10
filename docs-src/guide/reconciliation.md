@@ -15,7 +15,7 @@ So open the ClientPlayer script and create a new Struct above the ClientPlayer c
 ```csharp
 struct ReconciliationInfo
 {
-    public ReconciliationInfo(uint frame, PlayerUpdateData data, PlayerInputData input)
+    public ReconciliationInfo(uint frame, PlayerStateData data, PlayerInputData input)
     {
         Frame = frame;
         Data = data;
@@ -23,7 +23,7 @@ struct ReconciliationInfo
     }
 
     public uint Frame;
-    public PlayerUpdateData Data;
+    public PlayerStateData Data;
     public PlayerInputData Input;
 }
 ```
