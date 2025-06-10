@@ -202,6 +202,7 @@ The next step is movement. We want our player to move depending on his y rotatio
 ```
 Now we have to move our character controller to detect any collisions. But before that we need a little fix because the character controller isn't very reliable. So just add:
 ```csharp
+        // if this is not work(jump), change -0.001f to -0.1f
         CharacterController.Move(new Vector3(0, -0.001f, 0));
 ```
 Well just Unity things, anyways...
