@@ -40,8 +40,8 @@ The LateUpdate moves the HealthBar on top of the player or hides it if the playe
 
 Next, in the Initialize function after Name = name; add:
 ```csharp
- nameText.text = Name;
- SetHealth(100);
+        nameText.text = playerName;
+        SetHealth(100);
 ```
 
 Open the Game scene and drag the player prefab into it.
@@ -131,7 +131,7 @@ And change the GameUpdateData a bit. Add the following below the other arrays:
 
 Also pass a HealthUpdateDataArray into the constructor. It should look like this now:
 ```csharp
-public GameUpdateData(uint frame, PlayerUpdateData[] updateData, PlayerSpawnData[] spawns, PlayerDespawnData[] despawns, PlayerHealthUpdateData[] healthData)
+public GameUpdateData(uint frame, PlayerStateData[] updateData, PlayerSpawnData[] spawns, PlayerDespawnData[] despawns, PlayerHealthUpdateData[] healthData)
     {
         Frame = frame;
         UpdateData = updateData;
@@ -199,7 +199,7 @@ private int health;
 ```
 and initialize add after InputTick = room.ServerTick;
 ```csharp
-Health = 100;
+health = 100;
 ```
 Also add a function to let a player take damage and respawn him if he dies:
 ```csharp
@@ -260,7 +260,7 @@ public void PlayerPreUpdate()
 }
 ```
 
-No lets implement the actual shooting logic as a PerformShootRayCast function in the Room:
+Now lets implement the actual shooting logic as a PerformShootRayCast function in the Room:
 ```csharp
 public void PerformShootRayCast(uint frame, ServerPlayer shooter)
 {
